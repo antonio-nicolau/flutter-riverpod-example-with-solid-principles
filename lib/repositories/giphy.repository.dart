@@ -1,9 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:giphy_for_all/models/giphy.model.dart';
 import 'package:giphy_for_all/repositories/giphy.repository.interface.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
+
+final giphyRepositoryProvider = Provider<IGiphyRepositoy>((ref) {
+  return GiphyRepository();
+});
 
 class GiphyRepository implements IGiphyRepositoy {
   final apiKey = '1udPRUZGDkBj1Akd38yr2Efd3WcpQX30';

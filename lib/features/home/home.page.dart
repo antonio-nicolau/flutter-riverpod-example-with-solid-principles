@@ -1,43 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:giphy_for_all/state/giphy.state.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final trendingGiphys = ref.watch(getTrendingProvider);
 
-class _HomePageState extends State<HomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        title: const Text('Trending giphys'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+      body: trendingGiphys.when(
+        data: (data) {
+          return Text(data?.data?.length.toString() ?? '');
+        },
+        error: (err, _) => const Text('Error getting trending'),
+        loading: () => const Center(
+          child: CircularProgressIndicator(),
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () {},
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
