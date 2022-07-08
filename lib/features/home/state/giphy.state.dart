@@ -14,6 +14,7 @@ class GiphyNotifier extends StateNotifier<AsyncValue<Giphy?>> {
   final Reader _read;
 
   Future<void> getTrendingGiphys() async {
+    state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       return _read(giphyServiceProvider).getTrendingGiphys();
     });
