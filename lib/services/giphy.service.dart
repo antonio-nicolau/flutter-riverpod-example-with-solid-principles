@@ -14,9 +14,19 @@ class GiphyService implements IGiphyService {
   GiphyService(this._read);
 
   @override
-  Future<Giphy?> getTrending() async {
+  Future<Giphy?> getTrendingGiphys() async {
     try {
-      return _read(giphyRepositoryProvider).getTrending();
+      return _read(giphyRepositoryProvider).getTrendingGiphys();
+    } catch (e) {
+      log('Could not load trending giphy:$e');
+    }
+    return null;
+  }
+
+  @override
+  Future<Giphy?> searchGiphys(String search) async {
+    try {
+      return _read(giphyRepositoryProvider).searchGiphys(search);
     } catch (e) {
       log('Could not load trending giphy:$e');
     }

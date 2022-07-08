@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:giphy_for_all/features/home/home.page.dart';
+import 'package:giphy_for_all/features/home/pages/home.page.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
       title: 'Giphy for all',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: const HomePage(),
+      home: HomePage(),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:giphy_for_all/constants/urls.dart';
 import 'package:giphy_for_all/models/giphy.model.dart';
 import 'package:giphy_for_all/repositories/giphy.repository.interface.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -13,9 +14,9 @@ class GiphyRepository implements IGiphyRepositoy {
   final apiKey = '1udPRUZGDkBj1Akd38yr2Efd3WcpQX30';
 
   @override
-  Future<Giphy?> getTrending() async {
+  Future<Giphy?> getTrendingGiphys() async {
     final response = await http.get(
-      Uri.parse('https://api.giphy.com/v1/gifs/trending?api_key=$apiKey'),
+      _buildUrl(trendingGiphysEndpoint),
     );
 
     if (response.statusCode == HttpStatus.ok) {
@@ -23,5 +24,32 @@ class GiphyRepository implements IGiphyRepositoy {
     } else {
       throw Exception('Error getting giphys ${response.body}');
     }
+  }
+
+  @override
+  Future<Giphy?> searchGiphys(String search) async {
+    final response = await http.get(
+      _buildUrl(searchGiphysEndpoint, search: search),
+    );
+
+    if (response.statusCode == HttpStatus.ok) {
+      return Giphy.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Error getting giphys ${response.body}');
+    }
+  }
+
+  Uri _buildUrl(String path, {String? search}) {
+    return Uri(
+      scheme: 'https',
+      host: 'api.giphy.com',
+      path: path,
+      queryParameters: {
+        'api_key': apiKey,
+        'limit': '50',
+        'rating': 'g',
+        if (search != null) 'q': search,
+      },
+    );
   }
 }
