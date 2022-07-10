@@ -34,7 +34,9 @@ class HomePage extends ConsumerWidget {
                   ),
                 ),
                 onSubmitted: (search) {
-                  ref.read(giphyNotifierProvider.notifier).searchGiphy(search);
+                  if (searchEditingController.text.isNotEmpty) {
+                    ref.read(giphyNotifierProvider.notifier).searchGiphy(search);
+                  }
                 },
               ),
             ),
