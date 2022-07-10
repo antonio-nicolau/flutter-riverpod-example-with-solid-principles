@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:giphy_for_all/features/home/state/giphy.state.dart';
-import 'package:giphy_for_all/models/giphy.model.dart';
+import 'package:giphy_for_all/shared/models/giphy.model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class HomePage extends ConsumerWidget {
@@ -50,7 +50,7 @@ class HomePage extends ConsumerWidget {
                     itemBuilder: (context, index) {
                       final giphy = data?.data?[index];
                       return GestureDetector(
-                        onTap: () => openModal(context, giphy),
+                        onTap: () => _previewGiphy(context, giphy),
                         child: Image.network(
                           giphy?.images?.original?.url ?? '',
                           fit: BoxFit.cover,
@@ -80,7 +80,7 @@ class HomePage extends ConsumerWidget {
     );
   }
 
-  Future<void> openModal(BuildContext context, Data? giphy) async {
+  Future<void> _previewGiphy(BuildContext context, Data? giphy) async {
     showDialog(
       context: context,
       builder: (context) {

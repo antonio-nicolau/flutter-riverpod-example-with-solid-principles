@@ -1,4 +1,4 @@
-import 'package:giphy_for_all/models/giphy.model.dart';
+import 'package:giphy_for_all/shared/models/giphy.model.dart';
 
 abstract class IGiphyService {
   Future<Giphy?> getTrendingGiphys();

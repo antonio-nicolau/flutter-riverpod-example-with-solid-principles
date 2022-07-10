@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:giphy_for_all/constants/urls.dart';
-import 'package:giphy_for_all/models/giphy.model.dart';
-import 'package:giphy_for_all/repositories/giphy.repository.interface.dart';
+import 'package:giphy_for_all/shared/repositories/urls.dart';
+import 'package:giphy_for_all/shared/models/giphy.model.dart';
+import 'package:giphy_for_all/shared/repositories/giphy.repository.interface.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart' as http;
 
