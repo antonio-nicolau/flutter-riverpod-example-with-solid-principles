@@ -1,6 +1,6 @@
 # Flutter hooks_riverpod example with S.O.L.I.D principle
 
-A Flutter project to train riverpod following S.O.L.I.D principles
+A Flutter project to learn riverpod following S.O.L.I.D principles
 
 If you're starting with [hooks_riverpod](https://pub.dev/packages/hooks_riverpod) so this project is a good start point to see how it works, do more with less 😉
 
