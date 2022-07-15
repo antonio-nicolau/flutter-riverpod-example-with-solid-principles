@@ -6,10 +6,22 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class HomePage extends ConsumerWidget {
   HomePage({Key? key}) : super(key: key);
   final searchEditingController = TextEditingController();
+  final scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isLoadingMore = ref.watch(isLoadingMoreProvider.state);
     final trendingGiphys = ref.watch(giphyNotifierProvider);
+
+    void _listener() async {
+      if (!isLoadingMore.state && scrollController.offset >= scrollController.position.maxScrollExtent) {
+        isLoadingMore.state = true;
+        await ref.read(giphyNotifierProvider.notifier).loadMore();
+        isLoadingMore.state = false;
+      }
+    }
+
+    scrollController.addListener(_listener);
 
     return RefreshIndicator(
       onRefresh: () async {
@@ -45,8 +57,10 @@ class HomePage extends ConsumerWidget {
               child: trendingGiphys.when(
                 data: (data) {
                   return GridView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    controller: scrollController,
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
+                      crossAxisCount: 2,
                     ),
                     itemCount: data?.data?.length ?? 0,
                     itemBuilder: (context, index) {
@@ -67,6 +81,11 @@ class HomePage extends ConsumerWidget {
                 ),
               ),
             ),
+            if (isLoadingMore.state)
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 20),
+                child: Center(child: CircularProgressIndicator()),
+              )
           ],
         ),
         floatingActionButton: FloatingActionButton(

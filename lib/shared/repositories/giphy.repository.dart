@@ -29,7 +29,10 @@ class GiphyRepository implements IGiphyRepositoy {
   @override
   Future<Giphy?> searchGiphys(String search) async {
     final response = await http.get(
-      _buildUrl(searchGiphysEndpoint, queryParams: {'q': search}),
+      _buildUrl(
+        searchGiphysEndpoint,
+        queryParams: {'q': search},
+      ),
     );
 
     if (response.statusCode == HttpStatus.ok) {
@@ -40,7 +43,7 @@ class GiphyRepository implements IGiphyRepositoy {
   }
 
   Uri _buildUrl(String path, {Map<String, String>? queryParams}) {
-    final query = {'api_key': apiKey, 'limit': '50', 'rating': 'g'};
+    final query = {'api_key': apiKey, 'limit': '20', 'rating': 'g'};
 
     if (queryParams != null) {
       query.addAll(queryParams);
