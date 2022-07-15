@@ -11,7 +11,7 @@ final giphyRepositoryProvider = Provider<IGiphyRepositoy>((ref) {
 });
 
 class GiphyRepository implements IGiphyRepositoy {
-  final apiKey = '1udPRUZGDkBj1Akd38yr2Efd3WcpQX30';
+  final apiKey = 'MY_API_KEY';
 
   @override
   Future<Giphy?> getTrendingGiphys() async {
